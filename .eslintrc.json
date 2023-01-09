@@ -1,0 +1,35 @@
+{
+    // 브라우저 및 es2022까지의 전역 변수를 사용
+    "env": {
+      "browser": true,
+      "es2022": true
+    },
+    // Typescript 코드를 ESTree와 호환가능한 형태로 AST 파싱
+    "parser": "@typescript-eslint/parser",
+    // 해당 라이브러리 내 recommended 된 Rule을 모두 활성화
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "parserOptions": {
+      // Parser에게 JSX 를 사용
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      // ECMA2022까지 호환 가능한 문법 허용
+      "ecmaVersion": 2022,
+      // import, export 형태 허용
+      "sourceType": "module",
+      // 타입스크립트 설정 파일을 ESLint와 공유할 위치
+      // @typescirpt-Slint 에서 필요한 속성
+      "project": "./tsconfig.json"
+    },
+    "plugins": ["react", "@typescript-eslint"],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "off"
+    }
+  }
+  
