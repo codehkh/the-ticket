@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import Footer from '../components/footer/Footer';
+import Footer from 'components/footer/Footer';
 
 interface StyledMainProps {
   windowWidth :number;
@@ -19,7 +19,7 @@ const Main = (props:StyledMainProps) => {
   return (
     <StyledMain windowWidth={props.windowWidth} windowHeight={props.windowHeight} statusBar={props.statusBar}>
 
-      <Text>assssaaa</Text>
+      <Text>tryssss</Text>
       <Footer width={props.windowWidth} height={props.windowHeight}/>
     </StyledMain>
   );

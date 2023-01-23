@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 //asset
-import MyTicket from '../../assets/footer/my_ticket.svg';
+import MyTicket from 'assets/footer/my_ticket.svg';
 
 interface StyledFooterProps {
   width: number;
