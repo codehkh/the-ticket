@@ -1,6 +1,12 @@
 import styled from 'styled-components/native';
 //asset
-import MyTicket from 'assets/footer/my_ticket.svg';
+import MyTicketSVG from 'assets/footer/my_ticket.svg';
+import CommunicateSVG from 'assets/footer/communicate.svg';
+import ExploreSVG from 'assets/footer/explore.svg';
+
+const MyTicketIcon = styled(MyTicketSVG)``;
+const CommunicateIcon = styled(CommunicateSVG)``;
+const ExploreIcon = styled(ExploreSVG)``;
 
 interface StyledFooterProps {
   width: number;
@@ -14,6 +20,13 @@ const StyeldFooter = styled.View<StyledFooterProps>`
   top: ${(props) => props.height * 0.89}px;
   background: #ffffff;
   border: 0.8px solid #e5e5ea;
+  display: flex;
+  flex-direction: row;
+  padding-right: 58px;
+  padding-left: 58px;
+  padding-top: 18px;
+  justify-content: space-between;
+  align-items: baseline;
 `;
 
 const Footer = (props: StyledFooterProps) => {
@@ -21,7 +34,9 @@ const Footer = (props: StyledFooterProps) => {
     <StyeldFooter
       width={props.width}
       height={props.height}>
-      <MyTicket />
+      <MyTicketIcon />
+      <CommunicateIcon />
+      <ExploreIcon />
     </StyeldFooter>
   );
 };
