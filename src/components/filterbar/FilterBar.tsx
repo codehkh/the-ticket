@@ -9,13 +9,16 @@ interface StyledFilterBarProps {
   height: number;
 }
 
+const ClickFilterIcon = styled.Pressable`
+  padding: 11px;
+`;
 const FilterText = styled.Text`
   font-family: 'NotoSansKR-Medium';
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   text-align: left;
-  color: #8E8E93;
+  color: #8e8e93;
 `;
 
 const StyeldFilter = styled.View<StyledFilterBarProps>`
@@ -32,13 +35,15 @@ const StyeldFilter = styled.View<StyledFilterBarProps>`
   align-items: center;
 `;
 
-const FilterBar = (props: StyledFilterBarProps) => {
+const FilterBar = (props: StyledFilterBarProps,navigation:any) => {
   return (
     <StyeldFilter
       width={props.width}
       height={props.height}>
       <FilterText>{'전체'}</FilterText>
-      <FilterIcon />
+      <ClickFilterIcon>
+        <FilterIcon />
+      </ClickFilterIcon>
     </StyeldFilter>
   );
 };

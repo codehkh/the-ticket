@@ -3,6 +3,8 @@ import styled from 'styled-components/native';
 import Footer from 'components/footer/Footer';
 import Header from 'components/header/Header';
 import FilterBar from 'components/filterbar/FilterBar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 //screens
 import ListHome from 'screens/ListHome';
 import GridHome from 'screens/GridHome';
@@ -52,7 +54,7 @@ const Main = (props: StyledMainProps) => {
           windowWidth={props.windowWidth}
           windowHeight={props.windowHeight}
           statusBar={props.statusBar}>
-          <GridHome
+          <ListHome
             width={props.windowWidth}
             height={props.windowHeight}
           />
