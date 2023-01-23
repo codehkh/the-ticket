@@ -3,10 +3,31 @@ import styled from 'styled-components/native';
 import SpectaclesSVG from 'assets/header/spectacles.svg';
 import AlarmSVG from 'assets/header/alarm.svg';
 import PlusSVG from 'assets/header/plus.svg';
+import ProfileSVG from 'assets/header/profile.svg';
+//fonts
+import { useFonts } from 'expo-font';
 
 const SpectaclesIcon = styled(SpectaclesSVG)``;
 const AlarmIcon = styled(AlarmSVG)``;
 const PlusIcon = styled(PlusSVG)``;
+const ProfileIcon = styled(ProfileSVG)``;
+
+const ProfileText = styled.Text`
+  font-family: 'NotoSansKR-Medium';
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 32px;
+  text-align: left;
+`;
+
+const HeaderProfileAria = styled.View`
+  width: 104px;
+  height: 42px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
 
 const HeaderEachIconAria = styled.View`
   width: 42px;
@@ -23,7 +44,6 @@ const HeaderIconAria = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 0.8px solid #21215e;
 `;
 
 interface StyledHeaderProps {
@@ -40,18 +60,28 @@ const StyeldHeader = styled.View<StyledHeaderProps>`
   background: #ffffff;
   display: flex;
   flex-direction: row;
-  padding-right: 58px;
-  padding-left: 58px;
-  padding-top: 20px;
+  padding-right: 6px;
+  padding-left: 13px;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 `;
 
 const Header = (props: StyledHeaderProps) => {
+  let [fontsLoaded] = useFonts({
+    'NotoSansKR-Medium': require('assets/fonts/NotoSansKR-Medium.otf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <StyeldHeader
       width={props.width}
       height={props.height}>
+      <HeaderProfileAria>
+        <ProfileIcon />
+        <ProfileText>{'희진'}</ProfileText>
+      </HeaderProfileAria>
       <HeaderIconAria>
         <HeaderEachIconAria>
           <SpectaclesIcon />
