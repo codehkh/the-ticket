@@ -1,10 +1,11 @@
 import styled from 'styled-components/native';
-
+//components
 import Footer from 'components/footer/Footer';
 import Header from 'components/header/Header';
 import FilterBar from 'components/filterbar/FilterBar';
-
+//screens
 import ListHome from 'screens/ListHome';
+import GridHome from 'screens/GridHome';
 
 import { useFonts } from 'expo-font';
 
@@ -23,7 +24,7 @@ const StyledMain = styled.View<StyledMainProps>`
 
 const StyledHome = styled.View<StyledMainProps>`
   width: ${(props) => props.windowWidth}px;
-  margin-top: ${(props) => props.statusBar + props.windowHeight * 0.07 + 12 +props.windowHeight * 0.06}px;
+  margin-top: ${(props) => props.statusBar + props.windowHeight * 0.07 + 12 +props.windowHeight * 0.04}px;
   background: #ffffff;
 `;
 
@@ -51,7 +52,7 @@ const Main = (props: StyledMainProps) => {
           windowWidth={props.windowWidth}
           windowHeight={props.windowHeight}
           statusBar={props.statusBar}>
-          <ListHome
+          <GridHome
             width={props.windowWidth}
             height={props.windowHeight}
           />

@@ -13,6 +13,7 @@ const StyeldBlankTicket = styled.View`
   padding-right: 17px;
   padding-left: 17px;
   align-items: center;
+  margin-top: 0px;
 `;
 
 const ListHome = (props: StyledListHomeProps) => {
