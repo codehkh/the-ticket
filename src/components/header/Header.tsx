@@ -4,8 +4,6 @@ import SpectaclesSVG from 'assets/header/spectacles.svg';
 import AlarmSVG from 'assets/header/alarm.svg';
 import PlusSVG from 'assets/header/plus.svg';
 import ProfileSVG from 'assets/header/profile.svg';
-//fonts
-import { useFonts } from 'expo-font';
 
 const SpectaclesIcon = styled(SpectaclesSVG)``;
 const AlarmIcon = styled(AlarmSVG)``;
@@ -67,13 +65,7 @@ const StyeldHeader = styled.View<StyledHeaderProps>`
 `;
 
 const Header = (props: StyledHeaderProps) => {
-  let [fontsLoaded] = useFonts({
-    'NotoSansKR-Medium': require('assets/fonts/NotoSansKR-Medium.otf'),
-  });
 
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
     <StyeldHeader
       width={props.width}
