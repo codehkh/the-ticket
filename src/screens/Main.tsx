@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
+
 import Footer from 'components/footer/Footer';
+import Header from 'components/header/Header';
 
 interface StyledMainProps {
   windowWidth :number;
@@ -15,11 +16,17 @@ const StyledMain = styled.View<StyledMainProps>`
   background: #ffffff;
 `;
 
+const StyledCenter = styled.View<StyledMainProps>`
+  width: ${props => props.windowWidth}px;
+  margin-top: ${props => props.statusBar+props.windowHeight * 0.07+12}px;;
+  background: #ffffff;
+`;
+
 const Main = (props:StyledMainProps) => {
   return (
     <StyledMain windowWidth={props.windowWidth} windowHeight={props.windowHeight} statusBar={props.statusBar}>
-
-      <Text>tryssss</Text>
+      <Header width={props.windowWidth} height={props.windowHeight}/>
+      <StyledCenter windowWidth={props.windowWidth} windowHeight={props.windowHeight} statusBar={props.statusBar}></StyledCenter>
       <Footer width={props.windowWidth} height={props.windowHeight}/>
     </StyledMain>
   );
