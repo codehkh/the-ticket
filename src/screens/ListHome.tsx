@@ -9,17 +9,19 @@ interface StyledListHomeProps {
   height: number;
 }
 
-const StyeldBlankTicket = styled.View`
-  padding-right: 17px;
-  padding-left: 17px;
+const StyeldBlankTicket = styled.View<StyledListHomeProps>`
+  padding-right: ${(props) => props.width * 0.041}px;
+  padding-left: ${(props) => props.width * 0.041}px;
   align-items: center;
-  margin-top: 0px;
 `;
 
 const ListHome = (props: StyledListHomeProps) => {
   return (
-    <StyeldBlankTicket>
-    <BlankTicketIcon width={props.width*0.9} /></StyeldBlankTicket>
+    <StyeldBlankTicket
+      width={props.width}
+      height={props.height}>
+      <BlankTicketIcon width={props.width * 0.92} />
+    </StyeldBlankTicket>
   );
 };
 

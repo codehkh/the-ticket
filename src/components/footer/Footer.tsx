@@ -16,8 +16,8 @@ interface StyledFooterProps {
 const StyeldFooter = styled.View<StyledFooterProps>`
   position: absolute;
   width: ${(props) => props.width}px;
-  height: ${(props) => props.height * 0.11}px;
-  top: ${(props) => props.height * 0.89}px;
+  height: ${(props) => props.height * 0.067}px;
+  top: ${(props) => props.height * 0.9}px;
   background: #ffffff;
   border: 0.8px solid #e5e5ea;
   display: flex;

@@ -26,7 +26,7 @@ const StyledMain = styled.View<StyledMainProps>`
 
 const StyledHome = styled.View<StyledMainProps>`
   width: ${(props) => props.windowWidth}px;
-  margin-top: ${(props) => props.statusBar + props.windowHeight * 0.07 + 12 +props.windowHeight * 0.04}px;
+  margin-top: ${(props) => props.statusBar + props.windowHeight * 0.12}px;
   background: #ffffff;
 `;
 

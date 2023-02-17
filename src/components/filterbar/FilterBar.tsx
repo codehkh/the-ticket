@@ -10,7 +10,7 @@ interface StyledFilterBarProps {
 }
 
 const ClickFilterIcon = styled.Pressable`
-  padding: 11px;
+  //padding: 11px;
 `;
 const FilterText = styled.Text`
   font-family: 'NotoSansKR-Medium';
@@ -24,13 +24,13 @@ const FilterText = styled.Text`
 const StyeldFilter = styled.View<StyledFilterBarProps>`
   position: absolute;
   width: ${(props) => props.width}px;
-  height: ${(props) => props.height * 0.06}px;
+  height: ${(props) => props.height * 0.0392}px;
   top: ${(props) => props.height * 0.09}px;
   background: #ffffff;
   display: flex;
   flex-direction: row;
-  padding-right: 18px;
-  padding-left: 16px;
+  padding-right: ${(props) => props.width*0.041}px;
+  padding-left: ${(props) => props.width*0.041}px;
   justify-content: space-between;
   align-items: center;
 `;
