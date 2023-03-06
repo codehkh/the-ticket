@@ -2,12 +2,13 @@ import styled from 'styled-components/native';
 //components
 import Footer from 'components/footer/Footer';
 import Header from 'components/header/Header';
-import FilterBar from 'components/filterbar/FilterBar';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 //screens
 import ListHome from 'screens/ListHome';
 import GridHome from 'screens/GridHome';
+import CalendarHome from 'screens/CalendarHome';
 
 import { useFonts } from 'expo-font';
 
@@ -26,12 +27,12 @@ const StyledMain = styled.View<StyledMainProps>`
 
 const StyledHome = styled.View<StyledMainProps>`
   width: ${(props) => props.windowWidth}px;
-  margin-top: ${(props) => props.statusBar + props.windowHeight * 0.12}px;
+  margin-top: ${(props) => props.statusBar + props.windowHeight * 0.075}px;
   background: #ffffff;
 `;
 
 const Main = (props: StyledMainProps) => {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     'NotoSansKR-Medium': require('assets/fonts/NotoSansKR-Medium.otf'),
   });
   if (!fontsLoaded) {
@@ -46,17 +47,13 @@ const Main = (props: StyledMainProps) => {
           width={props.windowWidth}
           height={props.windowHeight}
         />
-        <FilterBar
-          width={props.windowWidth}
-          height={props.windowHeight}
-        />
         <StyledHome
           windowWidth={props.windowWidth}
           windowHeight={props.windowHeight}
           statusBar={props.statusBar}>
-          <ListHome
+          <CalendarHome
             width={props.windowWidth}
-            height={props.windowHeight}
+            height={props.windowHeight - (props.statusBar + props.windowHeight * 0.075)}
           />
         </StyledHome>
         <Footer

@@ -16,8 +16,8 @@ interface StyledFooterProps {
 const StyeldFooter = styled.View<StyledFooterProps>`
   position: absolute;
   width: ${(props) => props.width}px;
-  height: ${(props) => props.height * 0.067}px;
-  top: ${(props) => props.height * 0.9}px;
+  height: ${(props) => props.height * 0.1}px;
+  bottom: 0px;
   background: #ffffff;
   border: 0.8px solid #e5e5ea;
   display: flex;
@@ -26,7 +26,6 @@ const StyeldFooter = styled.View<StyledFooterProps>`
   padding-left: 58px;
   padding-top: 18px;
   justify-content: space-between;
-  align-items: baseline;
 `;
 
 const Footer = (props: StyledFooterProps) => {

@@ -7,40 +7,31 @@ const FilterIcon = styled(FilterSVG)``;
 interface StyledFilterBarProps {
   width: number;
   height: number;
+  filterSection?: JSX.Element;
 }
 
 const ClickFilterIcon = styled.Pressable`
   //padding: 11px;
 `;
-const FilterText = styled.Text`
-  font-family: 'NotoSansKR-Medium';
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  text-align: left;
-  color: #8e8e93;
-`;
 
 const StyeldFilter = styled.View<StyledFilterBarProps>`
-  position: absolute;
   width: ${(props) => props.width}px;
   height: ${(props) => props.height * 0.0392}px;
-  top: ${(props) => props.height * 0.09}px;
   background: #ffffff;
   display: flex;
   flex-direction: row;
-  padding-right: ${(props) => props.width*0.041}px;
-  padding-left: ${(props) => props.width*0.041}px;
+  padding-right: ${(props) => props.width * 0.041}px;
+  padding-left: ${(props) => props.width * 0.041}px;
   justify-content: space-between;
   align-items: center;
 `;
 
-const FilterBar = (props: StyledFilterBarProps,navigation:any) => {
+const FilterBar = (props: StyledFilterBarProps, navigation: any) => {
   return (
     <StyeldFilter
       width={props.width}
       height={props.height}>
-      <FilterText>{'전체'}</FilterText>
+      {props.filterSection}
       <ClickFilterIcon>
         <FilterIcon />
       </ClickFilterIcon>
