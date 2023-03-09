@@ -4,19 +4,36 @@ import Calendar from 'components/canlendar/canlendar';
 
 import { getDate, getMonth, getYear, addMonths, subMonths } from 'date-fns';
 import { useLocalObservable } from 'mobx-react';
-import {
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  SafeAreaView,
-  ScrollView,
-  View,
-} from 'react-native';
+import { ScrollView } from 'react-native';
 import { useRef, useState } from 'react';
 
 interface StyledCalendarHomeProps {
   width: number;
   height: number;
 }
+const CalendarDayText = styled.Text`
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #aeaeb2;
+`;
+
+const CalendarDayTextView = styled.View`
+  align-items: center;
+  justify-content: center;
+  width: 14.27%;
+  height: 100%;
+  padding-top: 3.5%;
+`;
+
+const CalendarDaysContainer = styled.View<StyledCalendarHomeProps>`
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height * 0.0457}px;
+`;
 
 const FilterText = styled.Text`
   font-family: 'NotoSansKR-Medium';
@@ -27,10 +44,10 @@ const FilterText = styled.Text`
   color: #1c1c1e;
 `;
 
-const StyeldCalendarHome = styled.View<{ homeheight: number }>`
+const StyeldCalendarHome = styled.View`
   display: flex;
   flex-direction: column;
-  height: ${({ homeheight }) => homeheight}px;
+  height: 100%;
 `;
 
 const CalendarHome = (props: StyledCalendarHomeProps) => {
@@ -39,48 +56,27 @@ const CalendarHome = (props: StyledCalendarHomeProps) => {
   const todayMonth = getMonth(date);
   const todayYear = getYear(date);
 
-  const scrollRef = useRef<ScrollView>(null);
-  const [layoutWidth, setLayoutWidth] = useState(props.width);
-  const [currentDate, setCurrentDate] = useState<Date>(date);
-
-  const scrollToMiddleCalendar = (): void => {
-    scrollRef.current?.scrollTo({
-      x: Math.floor(layoutWidth),
-      animated: false,
-    });
-  };
-
-  const prevMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() - 1,
-    currentDate.getDate()
-  );
-
-  const nextMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() + 1,
-    currentDate.getDate()
-  );
-
-  const scrollEffect = (e: NativeSyntheticEvent<NativeScrollEvent>): void => {
-    const xValue = Math.floor(e.nativeEvent.contentOffset.x);
-    const maxLayoutFloor = Math.floor(layoutWidth) * 2;
-    console.log(xValue);
-    if (!layoutWidth || layoutWidth === 1) {
-      return;
+  const [scrollViewOffset, setScrollViewOffset] = useState(0);
+  const handleScrollViewScroll = (event: any) => {
+    const offset = event.nativeEvent.contentOffset.x;
+    if (offset > scrollViewOffset) {
+      // Scrolling right, increase month
+      const newMonth = addMonths(
+        new Date(calendarLocalStore.todayYear, calendarLocalStore.todayMonth),
+        1
+      );
+      calendarLocalStore.todayYear = getYear(newMonth);
+      calendarLocalStore.todayMonth = getMonth(newMonth);
+    } else if (offset < scrollViewOffset) {
+      // Scrolling left, decrease month
+      const newMonth = subMonths(
+        new Date(calendarLocalStore.todayYear, calendarLocalStore.todayMonth),
+        1
+      );
+      calendarLocalStore.todayYear = getYear(newMonth);
+      calendarLocalStore.todayMonth = getMonth(newMonth);
     }
-
-    if (xValue === 0) {
-      if (scrollRef && scrollRef.current) {
-        scrollToMiddleCalendar();
-        setCurrentDate(prevMonth);
-      }
-    } else if (xValue === maxLayoutFloor) {
-      if (scrollRef && scrollRef.current) {
-        scrollToMiddleCalendar();
-        setCurrentDate(nextMonth);
-      }
-    }
+    setScrollViewOffset(offset);
   };
   const calendarLocalStore = useLocalObservable(() => ({
     _today: today,
@@ -108,46 +104,54 @@ const CalendarHome = (props: StyledCalendarHomeProps) => {
   }));
 
   return (
-    <StyeldCalendarHome homeheight={props.height}>
+    <StyeldCalendarHome>
       <FilterBar
         width={props.width}
         height={props.height}
         filterSection={
-          <FilterText>{`${currentDate.getFullYear()}.${
-            currentDate.getMonth() + 1
+          <FilterText>{`${calendarLocalStore._todayYear}.${
+            calendarLocalStore._todayMonth + 1
           }`}</FilterText>
         }
       />
-      <SafeAreaView
-        onLayout={(e): void => {
-          setLayoutWidth(e.nativeEvent.layout.width);
-          scrollToMiddleCalendar();
-        }}>
-        <ScrollView
-          horizontal
-          pagingEnabled
-          contentOffset={{ x: layoutWidth, y: 0 }}
-          ref={scrollRef}
-          onScrollEndDrag={scrollEffect}>
-
-            <Calendar
-              year={currentDate.getFullYear()}
-              month={currentDate.getMonth()}
-              width={props.width}
-            />
-            <Calendar
-              year={currentDate.getFullYear()}
-              month={currentDate.getMonth() + 1}
-              width={props.width}
-            />
-            <Calendar
-              year={currentDate.getFullYear()}
-              month={currentDate.getMonth() + 2}
-              width={props.width}
-            />
-
-        </ScrollView>
-      </SafeAreaView>
+      <CalendarDaysContainer width={props.width} height={props.height}>
+        <CalendarDayTextView>
+          <CalendarDayText>월</CalendarDayText>
+        </CalendarDayTextView>
+        <CalendarDayTextView>
+          <CalendarDayText>화</CalendarDayText>
+        </CalendarDayTextView>
+        <CalendarDayTextView>
+          <CalendarDayText>수</CalendarDayText>
+        </CalendarDayTextView>
+        <CalendarDayTextView>
+          <CalendarDayText>목</CalendarDayText>
+        </CalendarDayTextView>
+        <CalendarDayTextView>
+          <CalendarDayText>금</CalendarDayText>
+        </CalendarDayTextView>
+        <CalendarDayTextView>
+          <CalendarDayText>토</CalendarDayText>
+        </CalendarDayTextView>
+        <CalendarDayTextView>
+          <CalendarDayText>일</CalendarDayText>
+        </CalendarDayTextView>
+      </CalendarDaysContainer>
+      <ScrollView
+        horizontal={true}
+        pagingEnabled={true}
+        onScrollEndDrag={handleScrollViewScroll}>
+        <Calendar
+          year={calendarLocalStore._todayYear}
+          month={calendarLocalStore._todayMonth + 1}
+          width={props.width}
+        />
+        <Calendar
+          year={calendarLocalStore._todayYear}
+          month={calendarLocalStore._todayMonth + 2}
+          width={props.width}
+        />
+      </ScrollView>
     </StyeldCalendarHome>
   );
 };

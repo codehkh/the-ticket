@@ -84,27 +84,6 @@ const Calendar: React.FC<CalendarProps> = ({ year, month,width }) => {
   return (
     <Style.CalendarContainer widthCal = {width}>
       <Style.CalendarDaysContainer>
-        <Style.CalendarDayTextView>
-          <Style.CalendarDayText>월</Style.CalendarDayText>
-        </Style.CalendarDayTextView>
-        <Style.CalendarDayTextView>
-          <Style.CalendarDayText>화</Style.CalendarDayText>
-        </Style.CalendarDayTextView>
-        <Style.CalendarDayTextView>
-          <Style.CalendarDayText>수</Style.CalendarDayText>
-        </Style.CalendarDayTextView>
-        <Style.CalendarDayTextView>
-          <Style.CalendarDayText>목</Style.CalendarDayText>
-        </Style.CalendarDayTextView>
-        <Style.CalendarDayTextView>
-          <Style.CalendarDayText>금</Style.CalendarDayText>
-        </Style.CalendarDayTextView>
-        <Style.CalendarDayTextView>
-          <Style.CalendarDayText>토</Style.CalendarDayText>
-        </Style.CalendarDayTextView>
-        <Style.CalendarDayTextView>
-          <Style.CalendarDayText>일</Style.CalendarDayText>
-        </Style.CalendarDayTextView>
         {renderDays()}
       </Style.CalendarDaysContainer>
     </Style.CalendarContainer>

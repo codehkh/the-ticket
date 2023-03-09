@@ -19,8 +19,13 @@ const ProfileText = styled.Text`
   margin-left: 12px;
 `;
 
+interface StyledHeaderProps {
+  width: number;
+  height: number;
+}
+
 const HeaderProfileAria = styled.View<StyledHeaderProps>`
-width: 30%;
+  width: 30%;
   height: ${(props) => props.height * 0.0522}px;
   align-items: center;
   display: flex;
@@ -28,7 +33,7 @@ width: 30%;
 `;
 
 const HeaderEachIconAria = styled.View<StyledHeaderProps>`
-  width: ${(props) => props.width * 0.0287}px;
+  width: ${(props) => props.height * 0.0286}px;
   height: ${(props) => props.height * 0.0287}px;
   align-items: center;
   display: flex;
@@ -36,7 +41,7 @@ const HeaderEachIconAria = styled.View<StyledHeaderProps>`
 `;
 
 const HeaderIconAria = styled.View<StyledHeaderProps>`
-  width: 27%;
+  width: 34%;
   height: ${(props) => props.height * 0.0522}px;
   align-items: center;
   display: flex;
@@ -44,20 +49,14 @@ const HeaderIconAria = styled.View<StyledHeaderProps>`
   justify-content: space-between;
 `;
 
-interface StyledHeaderProps {
-  width: number;
-  height: number;
-}
-
 const StyeldHeader = styled.View<StyledHeaderProps>`
   position: absolute;
   width: ${(props) => props.width}px;
   height: ${(props) => props.height * 0.0849}px;
   top: 0px;
   background: #ffffff;
-  display: flex;
   flex-direction: row;
-  padding-right: ${(props) => props.width * 0.05}px;
+  padding-right: ${(props) => props.width * 0.041}px;
   padding-left: ${(props) => props.width * 0.041}px;
   padding-top: ${(props) => props.height * 0.0261}px;
   justify-content: space-between;

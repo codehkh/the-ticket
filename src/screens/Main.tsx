@@ -14,20 +14,22 @@ import { useFonts } from 'expo-font';
 
 interface StyledMainProps {
   windowWidth: number;
-  windowHeight: number;
+  appHeight: number; // statusBar 제외 높이
   statusBar: number;
 }
 
 const StyledMain = styled.View<StyledMainProps>`
   width: ${(props) => props.windowWidth}px;
-  height: ${(props) => props.windowHeight}px;
+  height: ${(props) => props.appHeight}px;
   margin-top: ${(props) => props.statusBar}px;
   background: #ffffff;
 `;
 
 const StyledHome = styled.View<StyledMainProps>`
   width: ${(props) => props.windowWidth}px;
-  margin-top: ${(props) => props.statusBar + props.windowHeight * 0.075}px;
+  height: ${(props) => props.appHeight-(props.appHeight * 0.0849) - 52}px;
+  margin-top: ${(props) => props.appHeight * 0.0849}px;
+  margin-bottom: 52px;
   background: #ffffff;
 `;
 
@@ -41,24 +43,24 @@ const Main = (props: StyledMainProps) => {
     return (
       <StyledMain
         windowWidth={props.windowWidth}
-        windowHeight={props.windowHeight}
+        appHeight={props.appHeight}
         statusBar={props.statusBar}>
         <Header
           width={props.windowWidth}
-          height={props.windowHeight}
+          height={props.appHeight}
         />
         <StyledHome
           windowWidth={props.windowWidth}
-          windowHeight={props.windowHeight}
+          appHeight={props.appHeight}
           statusBar={props.statusBar}>
           <CalendarHome
             width={props.windowWidth}
-            height={props.windowHeight - (props.statusBar + props.windowHeight * 0.075)}
+            height={props.appHeight}
           />
         </StyledHome>
         <Footer
           width={props.windowWidth}
-          height={props.windowHeight}
+          height={props.appHeight}
         />
       </StyledMain>
     );

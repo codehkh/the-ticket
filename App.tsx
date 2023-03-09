@@ -4,11 +4,12 @@ import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import { Dimensions, View } from 'react-native';
 //screen
-import Main from './src/screens/Main';
+import Main from 'screens/Main';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+export const windowWidth = Dimensions.get('window').width;
+export const windowHeight = Dimensions.get('window').height;
+export const statusBarHeight = Constants.statusBarHeight;
 
 export default function App() {
   return (
@@ -16,8 +17,8 @@ export default function App() {
       <View>
         <Main
           windowWidth={windowWidth}
-          windowHeight={windowHeight}
-          statusBar={Constants.statusBarHeight}
+          appHeight={windowHeight}
+          statusBar={statusBarHeight}
         />
         <StatusBar style="auto" />
       </View>

@@ -16,12 +16,13 @@ const ClickFilterIcon = styled.Pressable`
 
 const StyeldFilter = styled.View<StyledFilterBarProps>`
   width: ${(props) => props.width}px;
-  height: ${(props) => props.height * 0.0392}px;
+  height: ${(props) => props.height * 0.0392 + 15}px;
   background: #ffffff;
   display: flex;
   flex-direction: row;
   padding-right: ${(props) => props.width * 0.041}px;
   padding-left: ${(props) => props.width * 0.041}px;
+  padding-top: 15px;
   justify-content: space-between;
   align-items: center;
 `;
