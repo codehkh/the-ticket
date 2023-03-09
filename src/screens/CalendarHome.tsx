@@ -2,10 +2,15 @@ import styled from 'styled-components/native';
 import FilterBar from 'components/filterbar/FilterBar';
 import Calendar from 'components/canlendar/canlendar';
 
-import { getDate, getMonth, getYear, addMonths, subMonths } from 'date-fns';
-import { useLocalObservable } from 'mobx-react';
-import { ScrollView } from 'react-native';
-import { useRef, useState } from 'react';
+import { getDate, getMonth, getYear} from 'date-fns';
+import { observer, useLocalObservable } from 'mobx-react';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import { useRef } from 'react';
 
 interface StyledCalendarHomeProps {
   width: number;
@@ -50,34 +55,70 @@ const StyeldCalendarHome = styled.View`
   height: 100%;
 `;
 
-const CalendarHome = (props: StyledCalendarHomeProps) => {
+const CalendarHome =observer((props: StyledCalendarHomeProps) => {
   const date = new Date();
   const today = getDate(date);
   const todayMonth = getMonth(date);
   const todayYear = getYear(date);
+  const scrollRef = useRef<ScrollView>(null);
+  const canMomentum = useRef(false);
 
-  const [scrollViewOffset, setScrollViewOffset] = useState(0);
-  const handleScrollViewScroll = (event: any) => {
-    const offset = event.nativeEvent.contentOffset.x;
-    if (offset > scrollViewOffset) {
-      // Scrolling right, increase month
-      const newMonth = addMonths(
-        new Date(calendarLocalStore.todayYear, calendarLocalStore.todayMonth),
-        1
-      );
-      calendarLocalStore.todayYear = getYear(newMonth);
-      calendarLocalStore.todayMonth = getMonth(newMonth);
-    } else if (offset < scrollViewOffset) {
-      // Scrolling left, decrease month
-      const newMonth = subMonths(
-        new Date(calendarLocalStore.todayYear, calendarLocalStore.todayMonth),
-        1
-      );
-      calendarLocalStore.todayYear = getYear(newMonth);
-      calendarLocalStore.todayMonth = getMonth(newMonth);
-    }
-    setScrollViewOffset(offset);
+const onMomentumScrollBegin = () => {
+  canMomentum.current = true;
+};
+
+const onMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+  if (canMomentum.current) {
+    // console.log('onMomentumScrollEnd');
+    scrollEffect(e)
+  }
+
+  canMomentum.current = false;
+};
+
+  const scrollToMiddleCalendar = (): void => {
+    scrollRef.current?.scrollTo({
+      x: Math.floor(props.width),
+      animated: false,
+    });
   };
+
+  const scrollEffect = (e: NativeSyntheticEvent<NativeScrollEvent>): void => {
+    const xValue = Math.floor(e.nativeEvent.contentOffset.x);
+    const maxLayoutFloor = Math.floor(props.width) * 2;
+    console.log(xValue);
+    if (!props.width || props.width === 1) {
+      return;
+    }
+
+    if (xValue === 0) {
+      if (scrollRef && scrollRef.current) {
+        if(calendarLocalStore._todayMonth === 0){
+          calendarLocalStore.todayMonth = 11;
+          --calendarLocalStore.todayYear;
+        }
+        else{
+          calendarLocalStore.todayMonth = calendarLocalStore._todayMonth - 1;
+        }
+
+        scrollToMiddleCalendar();
+
+      }
+    } else if (xValue === maxLayoutFloor) {
+      if (scrollRef && scrollRef.current) {
+        if(calendarLocalStore._todayMonth === 11){
+          calendarLocalStore.todayMonth = 0;
+          ++calendarLocalStore.todayYear;
+        }
+        else{
+          calendarLocalStore.todayMonth = calendarLocalStore._todayMonth + 1;
+        }
+        scrollToMiddleCalendar();
+
+      }
+    }
+  };
+
   const calendarLocalStore = useLocalObservable(() => ({
     _today: today,
     _todayMonth: todayMonth,
@@ -114,7 +155,9 @@ const CalendarHome = (props: StyledCalendarHomeProps) => {
           }`}</FilterText>
         }
       />
-      <CalendarDaysContainer width={props.width} height={props.height}>
+      <CalendarDaysContainer
+        width={props.width}
+        height={props.height}>
         <CalendarDayTextView>
           <CalendarDayText>월</CalendarDayText>
         </CalendarDayTextView>
@@ -137,23 +180,37 @@ const CalendarHome = (props: StyledCalendarHomeProps) => {
           <CalendarDayText>일</CalendarDayText>
         </CalendarDayTextView>
       </CalendarDaysContainer>
-      <ScrollView
-        horizontal={true}
-        pagingEnabled={true}
-        onScrollEndDrag={handleScrollViewScroll}>
-        <Calendar
-          year={calendarLocalStore._todayYear}
-          month={calendarLocalStore._todayMonth + 1}
-          width={props.width}
-        />
-        <Calendar
-          year={calendarLocalStore._todayYear}
-          month={calendarLocalStore._todayMonth + 2}
-          width={props.width}
-        />
-      </ScrollView>
+      <SafeAreaView
+        onLayout={(): void => {
+          scrollToMiddleCalendar();
+        }}
+        style={{ flex: 1 }}>
+        <ScrollView
+          horizontal={true}
+          pagingEnabled={true}
+          ref={scrollRef}
+          contentOffset={{ x: props.width, y: 0 }}
+          onMomentumScrollBegin={onMomentumScrollBegin}
+          onMomentumScrollEnd={(e)=>onMomentumScrollEnd(e)}>
+          <Calendar
+            year={calendarLocalStore._todayYear}
+            month={calendarLocalStore._todayMonth === 0? 11 : calendarLocalStore._todayMonth }
+            width={props.width}
+          />
+          <Calendar
+            year={calendarLocalStore._todayYear}
+            month={calendarLocalStore._todayMonth + 1}
+            width={props.width}
+          />
+          <Calendar
+            year={calendarLocalStore._todayYear}
+            month={calendarLocalStore._todayMonth + 2 === 13? 1 : calendarLocalStore._todayMonth + 2}
+            width={props.width}
+          />
+        </ScrollView>
+      </SafeAreaView>
     </StyeldCalendarHome>
   );
-};
+});
 
 export default CalendarHome;
