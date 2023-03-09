@@ -4,7 +4,7 @@ export const CalendarContainer = styled.View<{ widthCal: number }>`
   ${({ widthCal }) => {
     return `width: ${widthCal}px`;
   }}
-  background-color: #fff;
+  background-color: #ffffff;
   height:100%;
 `;
 
@@ -18,7 +18,7 @@ export const CalendarDay = styled.View<{ weeksInMonth: number }>`
   align-items: center;
   justify-content: center;
   ${({ weeksInMonth }) => {
-    if (weeksInMonth === 4) return `height: 24.88%`;
+    if (weeksInMonth === 4) return `height: 33.25%`;
     else if (weeksInMonth === 5) return `height: 26.20%`;
     else return `height: 21.5%`;
   }}

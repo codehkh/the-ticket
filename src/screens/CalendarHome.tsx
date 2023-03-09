@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import FilterBar from 'components/filterbar/FilterBar';
 import Calendar from 'components/canlendar/canlendar';
 
-import { getDate, getMonth, getYear} from 'date-fns';
+import { getDate, getMonth, getYear } from 'date-fns';
 import { observer, useLocalObservable } from 'mobx-react';
 import {
   NativeScrollEvent,
@@ -55,7 +55,7 @@ const StyeldCalendarHome = styled.View`
   height: 100%;
 `;
 
-const CalendarHome =observer((props: StyledCalendarHomeProps) => {
+const CalendarHome = observer((props: StyledCalendarHomeProps) => {
   const date = new Date();
   const today = getDate(date);
   const todayMonth = getMonth(date);
@@ -63,18 +63,18 @@ const CalendarHome =observer((props: StyledCalendarHomeProps) => {
   const scrollRef = useRef<ScrollView>(null);
   const canMomentum = useRef(false);
 
-const onMomentumScrollBegin = () => {
-  canMomentum.current = true;
-};
+  const onMomentumScrollBegin = () => {
+    canMomentum.current = true;
+  };
 
-const onMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-  if (canMomentum.current) {
-    // console.log('onMomentumScrollEnd');
-    scrollEffect(e)
-  }
+  const onMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (canMomentum.current) {
+      // console.log('onMomentumScrollEnd');
+      scrollEffect(e);
+    }
 
-  canMomentum.current = false;
-};
+    canMomentum.current = false;
+  };
 
   const scrollToMiddleCalendar = (): void => {
     scrollRef.current?.scrollTo({
@@ -93,29 +93,25 @@ const onMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
 
     if (xValue === 0) {
       if (scrollRef && scrollRef.current) {
-        if(calendarLocalStore._todayMonth === 0){
+        scrollToMiddleCalendar();
+        if (calendarLocalStore._todayMonth === 0) {
           calendarLocalStore.todayMonth = 11;
           --calendarLocalStore.todayYear;
-        }
-        else{
+        } else {
           calendarLocalStore.todayMonth = calendarLocalStore._todayMonth - 1;
         }
-
-        scrollToMiddleCalendar();
-
       }
     } else if (xValue === maxLayoutFloor) {
+      scrollToMiddleCalendar();
       if (scrollRef && scrollRef.current) {
-        if(calendarLocalStore._todayMonth === 11){
+        if (calendarLocalStore._todayMonth === 11) {
           calendarLocalStore.todayMonth = 0;
           ++calendarLocalStore.todayYear;
-        }
-        else{
+        } else {
           calendarLocalStore.todayMonth = calendarLocalStore._todayMonth + 1;
         }
-        scrollToMiddleCalendar();
-
       }
+
     }
   };
 
@@ -191,10 +187,15 @@ const onMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
           ref={scrollRef}
           contentOffset={{ x: props.width, y: 0 }}
           onMomentumScrollBegin={onMomentumScrollBegin}
-          onMomentumScrollEnd={(e)=>onMomentumScrollEnd(e)}>
+          onMomentumScrollEnd={(e) => onMomentumScrollEnd(e)}
+          showsHorizontalScrollIndicator={false}>
           <Calendar
             year={calendarLocalStore._todayYear}
-            month={calendarLocalStore._todayMonth === 0? 11 : calendarLocalStore._todayMonth }
+            month={
+              calendarLocalStore._todayMonth === 0
+                ? 11
+                : calendarLocalStore._todayMonth
+            }
             width={props.width}
           />
           <Calendar
@@ -204,7 +205,11 @@ const onMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
           />
           <Calendar
             year={calendarLocalStore._todayYear}
-            month={calendarLocalStore._todayMonth + 2 === 13? 1 : calendarLocalStore._todayMonth + 2}
+            month={
+              calendarLocalStore._todayMonth + 2 === 13
+                ? 1
+                : calendarLocalStore._todayMonth + 2
+            }
             width={props.width}
           />
         </ScrollView>

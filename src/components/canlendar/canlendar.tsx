@@ -23,9 +23,9 @@ const getFirstDayOfWeek = (year: number, month: number) => {
   return new Date(year, month, 0).getDay();
 };
 
-const Calendar: React.FC<CalendarProps> = ({ year, month,width }) => {
-  const daysInMonth = getDaysInMonth(year, month - 1);
-  const firstDayOfWeek = getFirstDayOfWeek(year, month - 1);
+const Calendar: React.FC<CalendarProps> = (props) => {
+  const daysInMonth = getDaysInMonth(props.year, props.month - 1);
+  const firstDayOfWeek = getFirstDayOfWeek(props.year, props.month - 1);
 
   const days: number[] = [];
   for (let i = 1; i <= daysInMonth; i++) {
@@ -82,7 +82,7 @@ const Calendar: React.FC<CalendarProps> = ({ year, month,width }) => {
     return daysToRender;
   };
   return (
-    <Style.CalendarContainer widthCal = {width}>
+    <Style.CalendarContainer widthCal = {props.width}>
       <Style.CalendarDaysContainer>
         {renderDays()}
       </Style.CalendarDaysContainer>
