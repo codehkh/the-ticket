@@ -1,10 +1,13 @@
 import React from 'react';
 import * as Style from 'components/canlendar/canlendar.style';
-
+import {
+  Text
+} from 'react-native';
 interface CalendarProps {
   year: number;
   month: number;
   width : number;
+  test:number;
 }
 
 const getDaysInMonth = (year: number, month: number) => {
@@ -84,7 +87,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
   return (
     <Style.CalendarContainer widthCal = {props.width}>
       <Style.CalendarDaysContainer>
-        {renderDays()}
+      {renderDays()}
       </Style.CalendarDaysContainer>
     </Style.CalendarContainer>
   );

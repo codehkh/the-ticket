@@ -58,7 +58,7 @@ const StyeldCalendarHome = styled.View`
 const CalendarHome = observer((props: StyledCalendarHomeProps) => {
   const date = new Date();
   const today = getDate(date);
-  const todayMonth = getMonth(date);
+  const todayMonth = getMonth(date)+1;
   const todayYear = getYear(date);
   const scrollRef = useRef<ScrollView>(null);
   const canMomentum = useRef(false);
@@ -94,8 +94,8 @@ const CalendarHome = observer((props: StyledCalendarHomeProps) => {
     if (xValue === 0) {
       if (scrollRef && scrollRef.current) {
         scrollToMiddleCalendar();
-        if (calendarLocalStore._todayMonth === 0) {
-          calendarLocalStore.todayMonth = 11;
+        if (calendarLocalStore._todayMonth === 1) {
+          calendarLocalStore.todayMonth = 12;
           --calendarLocalStore.todayYear;
         } else {
           calendarLocalStore.todayMonth = calendarLocalStore._todayMonth - 1;
@@ -104,8 +104,8 @@ const CalendarHome = observer((props: StyledCalendarHomeProps) => {
     } else if (xValue === maxLayoutFloor) {
       scrollToMiddleCalendar();
       if (scrollRef && scrollRef.current) {
-        if (calendarLocalStore._todayMonth === 11) {
-          calendarLocalStore.todayMonth = 0;
+        if (calendarLocalStore._todayMonth === 12) {
+          calendarLocalStore.todayMonth = 1;
           ++calendarLocalStore.todayYear;
         } else {
           calendarLocalStore.todayMonth = calendarLocalStore._todayMonth + 1;
@@ -137,7 +137,7 @@ const CalendarHome = observer((props: StyledCalendarHomeProps) => {
     },
     set todayYear(val) {
       this._todayYear = val;
-    },
+    }
   }));
 
   return (
@@ -147,7 +147,7 @@ const CalendarHome = observer((props: StyledCalendarHomeProps) => {
         height={props.height}
         filterSection={
           <FilterText>{`${calendarLocalStore._todayYear}.${
-            calendarLocalStore._todayMonth + 1
+            calendarLocalStore._todayMonth
           }`}</FilterText>
         }
       />
@@ -188,29 +188,32 @@ const CalendarHome = observer((props: StyledCalendarHomeProps) => {
           contentOffset={{ x: props.width, y: 0 }}
           onMomentumScrollBegin={onMomentumScrollBegin}
           onMomentumScrollEnd={(e) => onMomentumScrollEnd(e)}
-          showsHorizontalScrollIndicator={false}>
+          showsHorizontalScrollIndicator={true}>
           <Calendar
             year={calendarLocalStore._todayYear}
             month={
-              calendarLocalStore._todayMonth === 0
-                ? 11
+              calendarLocalStore._todayMonth === 1
+                ? 12
+                : calendarLocalStore._todayMonth 
+            }
+            width={props.width}
+            test={calendarLocalStore.todayMonth}
+          />
+          <Calendar
+            year={calendarLocalStore._todayYear}
+            month={calendarLocalStore._todayMonth}
+            width={props.width}
+            test={calendarLocalStore.todayMonth}
+          />
+          <Calendar
+            year={calendarLocalStore._todayYear}
+            month={
+              calendarLocalStore._todayMonth === 13
+                ? 1
                 : calendarLocalStore._todayMonth
             }
             width={props.width}
-          />
-          <Calendar
-            year={calendarLocalStore._todayYear}
-            month={calendarLocalStore._todayMonth + 1}
-            width={props.width}
-          />
-          <Calendar
-            year={calendarLocalStore._todayYear}
-            month={
-              calendarLocalStore._todayMonth + 2 === 13
-                ? 1
-                : calendarLocalStore._todayMonth + 2
-            }
-            width={props.width}
+            test={calendarLocalStore.todayMonth}
           />
         </ScrollView>
       </SafeAreaView>
