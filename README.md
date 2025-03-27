@@ -10,26 +10,44 @@
 
 ### Frontend
 
-- **React** – 컴포넌트 기반 UI 구현
+- **React Native** – 컴포넌트 기반 UI 구현, 모바일 환경을 고려하여 native 선정
 - **TypeScript** – 정적 타이핑을 통한 안정성 확보
 - **Styled Components** – 컴포넌트 단위 스타일 관리
-- **React Router** – 페이지 간 라우팅 처리
-- **Recoil / MobX / Zustand** – 전역 상태 관리 (사용한 것만 작성)
-- **React Query** – 서버 상태 관리 및 비동기 요청 처리
+- **React Navigation** – 앱 내 라우팅 처리
+- **MobX** – 전역 상태 관리 (사용한 것만 작성)
+- **Expo** – React Native 개발을 위한 프레임워크 및 빌드/배포 도구
 
 ### 개발 도구
 
-- **Vite** – 빠른 번들링과 개발 환경 구성
-- **ESLint / Prettier** – 코드 품질 및 스타일 통일
-- **Storybook** – UI 컴포넌트 테스트 및 문서화 (사용 시)
-- **Git / GitHub** – 버전 관리 및 협업
+- **Expo CLI** – 앱 실행, 빌드, 배포 자동화
+- **ESLint / Prettier** – 코드 스타일 및 정적 분석
+- **GitHub** – 버전 관리
+
+## 아키텍처
+
+현재는 로컬 상태 기반으로 동작하며 이후 Firebase를 활용한 백엔드 구축을 계획 중
+
+![thticketdi drawio](https://github.com/user-attachments/assets/7b3eb517-a8fe-46ab-b0db-09cfcdebb43d)
+
 
 
 ## 주요 기능
-- [x] 도형 추가 (사각형, 원)
-- [x] 드래그로 위치 이동
-- [ ] 크기 조절
-- [ ] 이미지 업로드
-- [ ] 캔버스 내 요소 레이어 정렬
+- 캘린더, 리스트, 그리드의 세 가지 티켓 뷰 모드
+  - [x] 캘린더 뷰 개발
+  - [ ] 리스트 뷰 개발
+  - [x] 그리드 뷰 개발
+  - [ ] drawer 구현 
+- 티켓을 추가 기능 (직접 기록하는 방식, 지류 티켓 스캔 및 예매 내역 스크랩 방식을 제공)
+- 수집한 티켓 표출 시 필터링 기능
+- 사용자와의 상호작용 수집 및 분석 지표 표출
+- 개인화된 맞춤 작품 정보 추천
+
+## 데모
+
+> 기능 구현 중입니다. 추후 GIF 또는 링크 추가 예정
+
+## 기여자
+
+- [@kyeongheehong](https://github.com/codehkh)
 
 
