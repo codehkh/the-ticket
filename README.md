@@ -14,7 +14,7 @@
 - **TypeScript** – 정적 타이핑을 통한 안정성 확보
 - **Styled Components** – 컴포넌트 단위 스타일 관리
 - **React Navigation** – 앱 내 라우팅 처리
-- **MobX** – 전역 상태 관리 (사용한 것만 작성)
+- **MobX** – 전역 상태 관리
 - **Expo** – React Native 개발을 위한 프레임워크 및 빌드/배포 도구
 
 ### 개발 도구
